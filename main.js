@@ -28,6 +28,22 @@
     actualizar();
   }
 
+  // Entrada suave dos blocos marcados com .revelar quando aparecem no ecrã.
+  var blocos = document.querySelectorAll('.revelar');
+  if ('IntersectionObserver' in window) {
+    var observador = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (entrada) {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add('visivel');
+          observador.unobserve(entrada.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    blocos.forEach(function (bloco) { observador.observe(bloco); });
+  } else {
+    blocos.forEach(function (bloco) { bloco.classList.add('visivel'); });
+  }
+
   // O enviar.php volta com ?erro=1 quando o email não pôde ser enviado.
   if (/[?&]erro=1/.test(window.location.search)) {
     var erro = document.getElementById('erro-envio');
