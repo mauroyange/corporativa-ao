@@ -164,9 +164,11 @@ section[id] { scroll-margin-top: 80px; }
 .nota-icone { width: 38px; height: 38px; border-radius: 10px; background: var(--azul); display: grid; place-items: center; flex-shrink: 0; }
 .nota-icone.verde { background: #1FAE5B; }
 .nota-icone svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.nota-1 { top: 16%; left: -70px; }
-.nota-2 { top: 50%; right: -46px; animation-delay: -2s; }
-.nota-3 { bottom: 9%; left: -40px; animation-delay: -4s; }
+/* O rosto da fotografia ocupa cerca de 35–58% da altura e 45–62% da largura:
+   as notas ficam na janela (cima) e na secretária (baixo), nunca sobre a cara. */
+.nota-1 { top: 9%; left: -70px; }
+.nota-2 { top: 22%; right: -46px; animation-delay: -2s; }
+.nota-3 { bottom: 7%; left: -40px; animation-delay: -4s; }
 @keyframes flutuar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
 /* Faixa com as áreas de negócio */
@@ -357,12 +359,24 @@ section[id] { scroll-margin-top: 80px; }
 .atraso-3 { transition-delay: .3s !important; }
 
 /* Ecrãs médios */
-@media (max-width: 1060px) {
+@media (max-width: 1160px) {
   .nota-1 { left: -24px; }
   .nota-2 { right: -16px; }
   .nota-3 { left: -16px; }
 }
 @media (max-width: 980px) {
+  /* Menu recolhido a partir de tablets, para os links não se partirem em duas linhas */
+  .menu-botao { display: block; }
+  .menu {
+    position: absolute; top: 72px; left: 0; right: 0; background: var(--azul-noite); border-bottom: 1px solid rgba(255, 255, 255, .1);
+    flex-direction: column; align-items: stretch; gap: 0; padding: 8px 24px 18px; display: none;
+  }
+  .menu.aberto { display: flex; }
+  .menu a { padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, .1); font-size: 16px; }
+  .menu a.botao { margin-top: 14px; border-bottom: 0; }
+  .menu-botao[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-botao[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-botao[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .abertura-grelha, .preco-grelha, .contacto-grelha, .chamada-final-grelha { grid-template-columns: 1fr; gap: 48px; }
   .abertura-visual { margin: 0 auto; }
   .bento { grid-template-columns: 1fr 1fr; }
@@ -397,9 +411,9 @@ section[id] { scroll-margin-top: 80px; }
   .nota-icone { width: 32px; height: 32px; }
   .nota b { font-size: 13px; }
   .nota small { font-size: 11px; }
-  .nota-1 { left: -10px; top: 12%; }
+  .nota-1 { left: -10px; top: 13%; }
   .nota-2 { display: none; }
-  .nota-3 { left: auto; right: -10px; bottom: 7%; }
+  .nota-3 { left: auto; right: -10px; bottom: 5%; }
   .faixa li { font-size: 15px; gap: 28px; padding-right: 28px; }
   .seccao { padding: 68px 0; }
   .cabeca-seccao { margin-bottom: 36px; }
