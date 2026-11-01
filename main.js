@@ -1,4 +1,4 @@
-// Menu do telemóvel e ano no rodapé.
+// Menu do telemóvel, sombra do cabeçalho, aviso de erro do formulário e ano no rodapé.
 (function () {
   var botao = document.querySelector('.menu-botao');
   var menu = document.getElementById('menu');
@@ -18,6 +18,20 @@
         botao.setAttribute('aria-label', 'Abrir menu');
       }
     });
+  }
+
+  // Sombra discreta no cabeçalho depois de começar a descer a página.
+  var topo = document.querySelector('.topo');
+  if (topo) {
+    var actualizar = function () { topo.classList.toggle('com-sombra', window.scrollY > 8); };
+    window.addEventListener('scroll', actualizar, { passive: true });
+    actualizar();
+  }
+
+  // O enviar.php volta com ?erro=1 quando o email não pôde ser enviado.
+  if (/[?&]erro=1/.test(window.location.search)) {
+    var erro = document.getElementById('erro-envio');
+    if (erro) erro.hidden = false;
   }
 
   var ano = document.getElementById('ano');

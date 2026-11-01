@@ -12,6 +12,9 @@
   --grafite: #4A5563;     /* Grafite */
   --nevoa: #F4F7FB;       /* Névoa */
   --linha: #DCE3EB;
+  --ligacao: #1665AE;     /* Azul Online escurecido para texto pequeno (contraste AA) */
+  --cinza-texto: #5F6B7A;
+  --borda-campo: #7F8C9D;
   --raio: 6px;
   --largura: 1120px;
 }
@@ -28,7 +31,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 img { max-width: 100%; height: auto; display: block; }
-a { color: var(--azul-online); }
+a { color: var(--ligacao); }
+section[id] { scroll-margin-top: 84px; }
 h1, h2, h3 { color: var(--azul); line-height: 1.2; margin: 0 0 .6em; font-weight: 600; }
 h2 { font-size: clamp(26px, 3vw, 34px); letter-spacing: -0.01em; }
 p { margin: 0 0 1em; }
@@ -52,12 +56,14 @@ p { margin: 0 0 1em; }
 .botao-secundario:hover { background: var(--nevoa); }
 .botao-pequeno { padding: 9px 16px; font-size: 15px; }
 .botao-largo { width: 100%; }
+.icone-botao { width: 20px; height: 20px; margin-right: 10px; flex-shrink: 0; }
 .ligacao-seta { color: var(--azul); font-weight: 500; text-decoration: none; border-bottom: 2px solid var(--azul-claro); padding-bottom: 2px; }
 .ligacao-seta::after { content: " →"; }
 .ligacao-seta:hover { color: var(--azul-online); }
 
 /* Topo */
-.topo { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--linha); }
+.topo { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--linha); transition: box-shadow .2s; }
+.topo.com-sombra { box-shadow: 0 2px 12px rgba(10, 46, 82, .08); }
 .topo-linha { display: flex; align-items: center; justify-content: space-between; height: 72px; }
 .marca img { height: 40px; width: auto; }
 .menu { display: flex; align-items: center; gap: 26px; }
@@ -86,15 +92,18 @@ p { margin: 0 0 1em; }
 .foto-segmento.sem-foto::after { inset: 0 0 auto 0; aspect-ratio: 4 / 5; }
 .foto-segmento figcaption { margin-top: 10px; font-size: 15px; font-weight: 500; color: var(--azul); }
 .foto-equipa { aspect-ratio: 1 / 1; }
+/* Sem fotografia real da equipa, a secção mostra só o texto em vez de um espaço vazio */
+.foto-equipa.sem-foto { display: none; }
+.quem-grelha:has(.foto-equipa.sem-foto) { grid-template-columns: minmax(0, 780px); }
 
 /* Abertura */
 .abertura { padding: 64px 0 80px; }
 .abertura-grelha { display: grid; grid-template-columns: 1.15fr .85fr; gap: 64px; align-items: center; }
-.local { font-size: 14px; font-weight: 500; color: var(--azul-online); margin-bottom: 18px; }
+.local { font-size: 14px; font-weight: 600; color: var(--ligacao); letter-spacing: .02em; margin-bottom: 18px; }
 .abertura h1 { font-size: clamp(38px, 5vw, 58px); letter-spacing: -0.02em; margin-bottom: .45em; }
 .abertura-sub { font-size: 19px; max-width: 540px; }
 .abertura-accoes { display: flex; flex-wrap: wrap; align-items: center; gap: 26px; margin: 30px 0 22px; }
-.abertura-nota { font-size: 15px; color: #6B7684; margin: 0; }
+.abertura-nota { font-size: 15px; color: var(--cinza-texto); margin: 0; }
 
 /* Secções */
 .seccao { padding: 88px 0; }
@@ -109,13 +118,14 @@ p { margin: 0 0 1em; }
 .remetentes { background: #fff; border: 1px solid var(--linha); border-radius: var(--raio); }
 .remetente { display: flex; gap: 12px; align-items: baseline; padding: 20px 24px; font-size: 17px; }
 .remetente + .remetente { border-top: 1px solid var(--linha); }
-.remetente-rotulo { color: #8A96A6; font-size: 14px; min-width: 28px; }
+.remetente-rotulo { color: var(--cinza-texto); font-size: 14px; min-width: 28px; }
 .remetente-endereco { color: var(--azul); font-weight: 500; overflow-wrap: anywhere; }
-.remetente-endereco.cinzento { color: #8A96A6; font-weight: 400; text-decoration: line-through; text-decoration-color: #C3CEDB; }
+.remetente-endereco.cinzento { color: var(--cinza-texto); font-weight: 400; text-decoration: line-through; text-decoration-color: #A9B4C2; }
 .remetente-bom { background: #EEF5FC; }
 
 /* O que inclui */
 .inclui-grelha { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; align-items: start; }
+.inclui-grelha .foto-inclui { position: sticky; top: 100px; }
 .lista-inclui { margin: 0; }
 .lista-inclui dt { color: var(--azul); font-weight: 600; font-size: 17px; padding-top: 18px; border-top: 1px solid var(--linha); }
 .lista-inclui dt:first-child { border-top: 0; padding-top: 0; }
@@ -133,6 +143,9 @@ p { margin: 0 0 1em; }
 /* Com quem trabalhamos */
 .publico-topo { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; margin-bottom: 40px; }
 .segmentos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.chamada { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 48px; padding: 24px 28px; border: 1px solid var(--linha); border-radius: var(--raio); }
+.chamada p { margin: 0; color: var(--azul); font-weight: 500; }
+.chamada .botao { flex-shrink: 0; }
 
 /* Preço */
 .preco-grelha { display: grid; grid-template-columns: 1.2fr .8fr; gap: 64px; align-items: center; }
@@ -170,8 +183,10 @@ p { margin: 0 0 1em; }
 .campo label small { font-weight: 400; color: var(--grafite); }
 .campo input, .campo textarea {
   width: 100%; font: 400 16px/1.4 "Poppins", Arial, sans-serif; color: var(--azul-noite);
-  border: 1px solid #C3CEDB; border-radius: var(--raio); padding: 12px 14px; background: #fff;
+  border: 1px solid var(--borda-campo); border-radius: var(--raio); padding: 12px 14px; background: #fff;
 }
+.campo input::placeholder { color: #8A96A6; }
+.aviso-erro { background: #FDECEC; color: #9B1C1C; border-radius: var(--raio); padding: 12px 14px; font-size: 15px; }
 .campo input:focus, .campo textarea:focus { outline: none; border-color: var(--azul-online); box-shadow: 0 0 0 3px rgba(28,128,214,.18); }
 .campo-escondido { position: absolute; left: -9999px; }
 .aviso-dados { font-size: 14px; }
@@ -200,6 +215,7 @@ p { margin: 0 0 1em; }
   .abertura-grelha, .problema, .inclui-grelha, .como-grelha, .publico-topo, .preco-grelha, .contacto-grelha { grid-template-columns: 1fr; gap: 40px; }
   .foto-abertura { max-width: 520px; }
   .foto-inclui { max-width: 460px; }
+  .inclui-grelha .foto-inclui { position: static; }
   .quem-grelha { grid-template-columns: .7fr 1.3fr; gap: 36px; }
 }
 
@@ -238,6 +254,8 @@ p { margin: 0 0 1em; }
   .campo-duplo { grid-template-columns: 1fr; }
   .contactos li { grid-template-columns: 1fr; gap: 2px; }
   .rodape-texto { text-align: left; }
+  .rodape { padding-bottom: 96px; }
+  .chamada { flex-direction: column; align-items: stretch; padding: 20px 18px; }
   .whatsapp-flutuante { width: 52px; height: 52px; right: 14px; bottom: 14px; }
 }
 
