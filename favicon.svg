@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="corporativa.ao">
+<title>corporativa.ao</title>
+<g transform="translate(19.1 8.6) scale(1.05)">
+  <path fill="#0F4C81" stroke="#0F4C81" stroke-width="6" stroke-linejoin="round" d="M58 6L104 21V62C104 96 84 120 58 132C32 120 12 96 12 62V21Z"/>
+  <rect fill="#FFFFFF" x="28" y="44" width="60" height="44" rx="7"/>
+  <path fill="#1C80D6" d="M35 44H81A7 7 0 0 1 88 51V57H28V51A7 7 0 0 1 35 44Z"/>
+  <path fill="none" stroke="#0F4C81" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M39 66L58 79L77 66"/>
+</g>
+</svg>
